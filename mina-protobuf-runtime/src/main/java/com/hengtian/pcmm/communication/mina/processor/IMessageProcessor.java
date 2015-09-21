@@ -1,4 +1,4 @@
-package com.weijiangzhu.minaserver.messageProcessor;
+package com.hengtian.pcmm.communication.mina.processor;
 
 import org.apache.mina.core.session.IoSession;
 

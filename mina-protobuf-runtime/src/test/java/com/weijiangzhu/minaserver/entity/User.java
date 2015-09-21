@@ -4,7 +4,7 @@ import java.util.List;
 
 public class User {
 	private int age;
-	private List<Car> cars;
+	private List<K5Car> cars;
 
 	public void setAge(int age) {
 		this.age = age;
@@ -14,7 +14,7 @@ public class User {
 		this.age = age;
 	}
 
-	public User(int age, List<Car> cars) {
+	public User(int age, List<K5Car> cars) {
 		this.age = age;
 		this.cars = cars;
 	}

@@ -1,4 +1,4 @@
-package com.weijiangzhu.minaserver.protobuf;
+package com.hengtian.pcmm.communication.protobuf;
 
 import com.dyuproject.protostuff.LinkedBuffer;
 import com.dyuproject.protostuff.ProtobufIOUtil;

@@ -1,24 +1,32 @@
 package com.weijiangzhu.minaserver;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.mina.core.RuntimeIoException;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.session.IoSession;
-import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
-import com.weijiangzhu.minaserver.message.MessageHandler;
-import com.weijiangzhu.minaserver.message.MessageType;
-import com.weijiangzhu.minaserver.messageProcessor.UserProcessor;
+import com.hengtian.pcmm.communication.mina.dispatcher.DefaultMessageDispatcher;
+import com.hengtian.pcmm.communication.mina.dispatcher.IMessageDispatcher;
+import com.hengtian.pcmm.communication.mina.handler.MessageHandler;
+import com.weijiangzhu.minaserver.entity.K5Car;
+import com.weijiangzhu.minaserver.entity.User;
+import com.weijiangzhu.minaserver.messageType.MessageType;
+import com.weijiangzhu.minaserver.processor.UserProcessor;
 
 public class Client {
 	public static void main(String[] args) {
 		NioSocketConnector connector = new NioSocketConnector();
 		connector.setConnectTimeoutMillis(3000);
-		connector.getFilterChain().addLast("logger", new LoggingFilter());
 		MessageHandler messageHandler = new MessageHandler();
-		messageHandler.putMessageProcessor(MessageType.USERINFO, new UserProcessor());
+		IMessageDispatcher messageDispatcher = new DefaultMessageDispatcher();
+		UserProcessor userProcessor = new UserProcessor();
+		messageHandler.setMessageDispatcher(messageDispatcher);
+		userProcessor.setMessageDispatcher(messageDispatcher);
+		messageHandler.putMessageProcessor(MessageType.USERINFO, userProcessor);
 		connector.setHandler(messageHandler);
 		IoSession session;
 		for (;;) {
@@ -26,6 +34,13 @@ public class Client {
 				ConnectFuture future = connector.connect(new InetSocketAddress("127.0.0.1", 9623));
 				future.awaitUninterruptibly();
 				session = future.getSession();
+
+				List<K5Car> cars = new ArrayList<K5Car>();
+				cars.add(new K5Car("K3", "china"));
+				cars.add(new K5Car("k5", "usa"));
+				User user = new User(1, cars);
+
+				messageDispatcher.sendMessage(session, MessageType.USERINFO, user);
 				break;
 			} catch (RuntimeIoException e) {
 				e.printStackTrace();
