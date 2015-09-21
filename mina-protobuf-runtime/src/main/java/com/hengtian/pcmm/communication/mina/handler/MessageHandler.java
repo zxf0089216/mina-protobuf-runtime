@@ -30,7 +30,7 @@ public class MessageHandler extends IoHandlerAdapter {
 		return this.messageDispatcher;
 	}
 
-	public void putMessageProcessor(Integer messageType, IMessageProcessor messageProcessor) {
+	public void addMessageProcessor(Integer messageType, IMessageProcessor messageProcessor) {
 		messageProcessorCache.put(messageType, messageProcessor);
 	}
 

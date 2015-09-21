@@ -26,7 +26,7 @@ public class Client {
 		UserProcessor userProcessor = new UserProcessor();
 		messageHandler.setMessageDispatcher(messageDispatcher);
 		userProcessor.setMessageDispatcher(messageDispatcher);
-		messageHandler.putMessageProcessor(MessageType.USERINFO, userProcessor);
+		messageHandler.addMessageProcessor(MessageType.USERINFO, userProcessor);
 		connector.setHandler(messageHandler);
 		IoSession session;
 		for (;;) {

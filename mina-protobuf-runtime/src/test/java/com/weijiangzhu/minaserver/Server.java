@@ -33,7 +33,7 @@ public class Server {
 		UserProcessor userProcessor = new UserProcessor();
 		messageHandler.setMessageDispatcher(messageDispatcher);
 		userProcessor.setMessageDispatcher(messageDispatcher);
-		messageHandler.putMessageProcessor(MessageType.USERINFO, userProcessor);
+		messageHandler.addMessageProcessor(MessageType.USERINFO, userProcessor);
 		acceptor.setHandler(messageHandler);
 		acceptor.getSessionConfig().setReadBufferSize(2048);
 		acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);
