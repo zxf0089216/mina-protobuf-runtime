@@ -6,10 +6,20 @@ import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.hengtian.pcmm.communication.mina.dispatcher.IMessageDispatcher;
 import com.hengtian.pcmm.communication.protobuf.GooglebufUtil;
 
 public abstract class MessageProcessor<TMessage> implements IMessageProcessor {
 	Logger log = LoggerFactory.getLogger(MessageProcessor.class);
+	private IMessageDispatcher messageDispatcher;
+
+	public IMessageDispatcher getMessageDispatcher() {
+		return messageDispatcher;
+	}
+
+	public void setMessageDispatcher(IMessageDispatcher messageDispatcher) {
+		this.messageDispatcher = messageDispatcher;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

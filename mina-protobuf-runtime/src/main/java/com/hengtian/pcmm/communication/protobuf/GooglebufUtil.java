@@ -3,7 +3,6 @@ package com.hengtian.pcmm.communication.protobuf;
 import com.dyuproject.protostuff.LinkedBuffer;
 import com.dyuproject.protostuff.ProtobufIOUtil;
 import com.dyuproject.protostuff.Schema;
-import com.dyuproject.protostuff.runtime.DefaultIdStrategy;
 import com.dyuproject.protostuff.runtime.RuntimeSchema;
 
 public class GooglebufUtil {
@@ -33,7 +32,7 @@ public class GooglebufUtil {
 	}
 
 	public static synchronized <T> T processDecode(byte[] googlebuf, Class<T> clazz) {
-		Schema<T> schema = RuntimeSchema.createFrom(clazz, new DefaultIdStrategy());
+		Schema<T> schema = RuntimeSchema.getSchema(clazz);
 		T t = schema.newMessage();
 		ProtobufIOUtil.mergeFrom(googlebuf, t, schema);
 		return t;
