@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 
-import com.weijiangzhu.minaserver.entity.User;
 import com.weijiangzhu.minaserver.protobuf.GooglebufUtil;
 import com.weijiangzhu.minaserver.util.IPUtil;
 
